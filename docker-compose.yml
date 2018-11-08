@@ -1,0 +1,12 @@
+# My Ideal Technical Stack
+# Owner: Nicolas Oudard
+# Usage: docker-compose up -d
+
+# defined the docker-compose version (needed)
+version: '3'
+
+# docker network should be defined
+# let's start with one network "default"
+networks:
+  default:
+
