@@ -1,0 +1,10 @@
+FROM node:8.14.0-jessie
+
+# Create app directory
+WORKDIR /usr/app
+
+# install node package
+COPY package.json .
+RUN npm install --quiet
+
+COPY . .

@@ -1,0 +1,28 @@
+# My Ideal Technical Stack
+# Owner: Nicolas Oudard
+# Usage: docker-compose up -d
+#
+# edit .env file to manage the docker-compose files to build
+
+# defined the docker-compose version (needed)
+version: '3'
+
+services:
+# Here is the API docker that will run the application for development purpose
+  api:
+# Dockerfile to build the docker
+    build:
+      context: .
+      dockerfile: Dockerfile.node-api
+# command which will be launched after building the docker
+    command: npm run watch
+# local directory is mount into the docker to be executed
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "4000:4000"
+# To be executed after the db one
+    depends_on:
+      - db
+    container_name: myits-api

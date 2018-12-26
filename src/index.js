@@ -16,6 +16,7 @@ import companiesRouter from './routes/companies'
 const app = new Koa()
 
 //Here's the rate limiter
+/*
 app.use(
     ratelimit({
         db: new redis(),
@@ -31,6 +32,7 @@ app.use(
         max: 100,
     })
 )
+*/
 
 //Let's log each successful interaction. We'll also log each error - but not here,
 //that's be done in the json error-handling middleware
