@@ -1,0 +1,116 @@
+import joi from 'joi'
+import dateFormat from 'date-fns/format'
+
+import { Company } from '../models/Company'
+
+const companySchema = joi.object({
+    id: joi.number().integer(),
+    name: joi.string().required(),
+    created_at: joi.date().timestamp('unix'),
+    updated_at: joi.date().timestamp('unix'),
+    deleted_at: joi.date().timestamp('unix'),
+    status: joi.string(),
+})
+
+class CompanyController {
+    async index(ctx) {
+        const query = ctx.query
+
+        //Init a new company object
+        const company = new Company()
+
+        //Get list of company
+        try {
+            let result = await company.all(query)
+            ctx.body = result
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA' + error)
+        }
+    }
+
+    async show(ctx) {
+        const params = ctx.params
+        if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+        //Initialize company
+        const company = new Company()
+
+        try {
+            //Find and show note
+            await company.find(params.id)
+            ctx.body = company
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async create(ctx) {
+        const request = ctx.request.body
+
+        //Create a new company object using the request params
+        const company = new Company(request)
+
+        //Validate the newly created company
+        const validator = joi.validate(company, companySchema)
+        if (validator.error) ctx.throw(400, validator.error.details[0].message)
+
+        try {
+            let result = await company.store()
+            ctx.body = { message: 'SUCCESS', id: result }
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async update(ctx) {
+        const params = ctx.params
+        const request = ctx.request.body
+
+        //Make sure they've specified a company
+        if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+        //Find and set that company
+        const company = new Company()
+        await company.find(params.id)
+        if (!note) ctx.throw(400, 'INVALID_DATA')
+
+        //Add the updated date value
+        company.updatedAt = dateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss')
+
+        //Replace the note data with the new updated note data
+        Object.keys(ctx.request.body).forEach(function(parameter, index) {
+            company[parameter] = request[parameter]
+        })
+
+        try {
+            await company.save()
+            ctx.body = { message: 'SUCCESS' }
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+
+    async delete(ctx) {
+        const params = ctx.params
+        if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+        //Find that company
+        const company = new Company()
+        await company.find(params.id)
+        if (!company) ctx.throw(400, 'INVALID_DATA')
+
+        try {
+            await note.destroy()
+            ctx.body = { message: 'SUCCESS' }
+        } catch (error) {
+            console.log(error)
+            ctx.throw(400, 'INVALID_DATA')
+        }
+    }
+}
+
+export default CompanyController

@@ -35,8 +35,8 @@
     "koa-router": "^7.4.0",
     "koa-useragent": "^1.1.0",
     "log4js": "^2.8.0",
-    "mysql": "^2.15.0",
     "npm": "^6.4.1",
+    "pg": "^7.7.1",
     "pm2": "^2.10.4",
     "randexp": "^0.4.9"
   },
@@ -73,7 +73,8 @@
     "backend",
     "jwt",
     "pm2",
-    "mysql",
+    "pg",
+    "postgresql",
     "database"
   ],
   "jest": {

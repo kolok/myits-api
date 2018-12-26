@@ -14,8 +14,8 @@ services:
 # Ex: psql -p 5432 -h 127.0.0.1 -U myits-user
 # Else, if the port is not opened you can use the "docker exec" command
 # docker exec -it technicalstackforbtocbusiness_db_1 psql -p 5432 -h 127.0.0.1 -U myits-user
-#    ports:
-#      - 5432:5432
+    ports:
+      - 5432:5432
     environment:
 # Use a dedicate user for this pproject with a complex password
       POSTGRES_USER: myits-user
@@ -36,4 +36,3 @@ services:
     ports:
       - 8080:8080
     container_name: myits-adminer
-
