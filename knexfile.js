@@ -16,6 +16,18 @@ module.exports = {
             database: process.env.DB_DATABASE + '_testing',
             charset: 'utf8mb4',
             collate: 'utf8mb4_unicode_ci'
+        },
+        migrations: {
+            directory: './src/db/migrations',
+        },
+        seeds: {
+            directory: './src/db/seeds/dev',
+        },
+        dbManager: {
+            // db manager related configuration
+            collate: ['utf8mb4', 'utf8mb4_unicode_ci'],
+            superUser: process.env.DB_USER,
+            superPassword: process.env.DB_PASSWORD
         }
     },
     development: {
