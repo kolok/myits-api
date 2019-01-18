@@ -10,6 +10,7 @@ import ratelimit from 'koa-ratelimit'
 import redis from 'ioredis'
 
 //Routes
+import defaultRouter from './routes/default'
 import companiesRouter from './routes/companies'
 
 //Initialize app
@@ -79,6 +80,8 @@ app.use(userAgent)
 app.use(bodyParser({ enableTypes: ['json'] }))
 
 //For router
+app.use(defaultRouter.routes())
+app.use(defaultRouter.allowedMethods())
 app.use(companiesRouter.routes())
 app.use(companiesRouter.allowedMethods())
 
