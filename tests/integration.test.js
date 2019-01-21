@@ -1,3 +1,5 @@
+// TODO: organize and split t many files
+
 //Only run tests if we've specifically set NODE_ENV to testing
 if (process.env.NODE_ENV !== 'testing') {
     throw new Error('NODE_ENV not set')
@@ -35,6 +37,19 @@ afterAll(async () => {
 /////////////
 // General //
 /////////////
+
+describe('general actions', () => {
+    it('returns homepage', async () => {
+        expect.assertions(2)
+        const response = await request.get('/')
+        expect(response.status).toBe(200)
+        expect(response.data.msg).toBe('yeah !! we are up')
+    })
+})
+
+///////////////
+// Companies //
+///////////////
 
 describe('company actions', () => {
     it('creates a company', async () => {
