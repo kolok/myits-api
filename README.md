@@ -36,8 +36,11 @@ Before launch test if the testing database doesn't exist, you should create it, 
 
 > docker exec -i myits-db psql -p 5432 -h 127.0.0.1 -U myits-user < db-files/myits.testing.db.sql
 
-This command will dropp and create the testing database, others steps will be handle in the tests by the migrations and the seeds process.
+This command will drop and create the testing database, others steps will be handle in the tests by the migrations and the seeds process.
 
+Run tests :
+
+> docker exec myits-api npm run test
 
 # Useful links
 
