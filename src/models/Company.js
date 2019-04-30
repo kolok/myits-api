@@ -1,38 +1,42 @@
-import db from '../db/db'
+import {sequelizeConnection, Sequelize} from '../db/db'
 import rand from 'randexp'
 
-class Company {
-    constructor(data) {
-        if (!data) {
-            return
-        }
+/*const Task = sequelize.define('task', {
+  title: Sequelize.STRING,
+  description: Sequelize.TEXT,
+  deadline: Sequelize.DATE
+})
+*/
+const CompanyModel = sequelizeConnection.define("companies", {
+  id: {
+    type: Sequelize.DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {
+    type: Sequelize.DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  status: Sequelize.DataTypes.STRING,
+  created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+  update_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+  deleted_at: { type: Sequelize.DATE }
+});
 
-        this.id = data.id
-        this.name = data.name
-        this.status = data.status
-        this.created_at = data.created_at
-        this.updated_at = data.updated_at
-        this.deleted_at = data.deleted_at
-    }
+
+class Company {
+    constructor() {}
 
     async all(request) {
         try {
-            return await db('companies')
-                .select('*')
-/*                .where(
-                    'title',
-                    'like',
-                    '%' + (request.sort ? request.sort : '') + '%'
-                )
-                .orderBy('createdAt', request.order)
-                .offset(+request.page * +request.limit)
-                .limit(+request.limit)*/
+            return CompanyModel.findAll() //.then(projects => {return projects})
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
         }
     }
-
+/*
     async find(id) {
         try {
             let result = await findById(id)
@@ -73,9 +77,10 @@ class Company {
             console.log(error)
             throw new Error('ERROR')
         }
-    }
-}
+    }*/
+};
 
+/*
 async function findById(id) {
     try {
         let [companyData] = await db('companies')
@@ -86,6 +91,6 @@ async function findById(id) {
         console.log(error)
         throw new Error('ERROR')
     }
-}
+}*/
 
-export { Company, findById }
+export { Company }

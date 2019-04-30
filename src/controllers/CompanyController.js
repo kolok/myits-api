@@ -3,20 +3,11 @@ import dateFormat from 'date-fns/format'
 
 import { Company } from '../models/Company'
 
-const companySchema = joi.object({
-    id: joi.number().integer(),
-    name: joi.string().required(),
-    created_at: joi.date().timestamp('unix'),
-    updated_at: joi.date().timestamp('unix'),
-    deleted_at: joi.date().timestamp('unix'),
-    status: joi.string(),
-})
 
 class CompanyController {
     async index(ctx) {
-        const query = ctx.query
-
         //Init a new company object
+        const query = ctx.query
         const company = new Company()
 
         //Get list of company
@@ -29,6 +20,7 @@ class CompanyController {
         }
     }
 
+/*
     async show(ctx) {
         const params = ctx.params
         if (!params.id) ctx.throw(400, 'INVALID_DATA')
@@ -111,6 +103,7 @@ class CompanyController {
             ctx.throw(400, 'INVALID_DATA')
         }
     }
+*/
 }
 
 export default CompanyController
