@@ -1,4 +1,4 @@
-import {sequelizeConnection, Sequelize} from '../db/db'
+import {sequelize, Sequelize} from '../db/db'
 import rand from 'randexp'
 
 /*const Task = sequelize.define('task', {
@@ -7,7 +7,18 @@ import rand from 'randexp'
   deadline: Sequelize.DATE
 })
 */
-const CompanyModel = sequelizeConnection.define("companies", {
+
+/* FIXME adding enum
+class MyModel extends Model {}
+MyModel.init({
+  states: {
+    type: Sequelize.ENUM,
+    values: ['active', 'pending', 'deleted']
+  }
+}, { sequelize })
+*/
+
+const CompanyModel = sequelize.define("companies", {
   id: {
     type: Sequelize.DataTypes.INTEGER,
     primaryKey: true,
@@ -18,11 +29,30 @@ const CompanyModel = sequelizeConnection.define("companies", {
     allowNull: false,
     unique: true
   },
-  status: Sequelize.DataTypes.STRING,
-  created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-  update_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-  deleted_at: { type: Sequelize.DATE }
+  status: {
+    type: Sequelize.ENUM,
+    defaultValue: 'active',
+    values: ['active', 'inactive', 'deleted']
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW,
+    field: "created_at"
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW,
+    field: "updated_at"
+  },
+  deletedAt: {
+    type: Sequelize.DATE,
+    field: "deleted_at"
+  }
 });
+
+
+
+
 
 
 class Company {
