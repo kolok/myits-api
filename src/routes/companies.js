@@ -21,6 +21,10 @@ router.get('/api/v1/companies/:id', /*jwtMiddleware,*/ async (ctx, next) => {
     await companyController.show(ctx)
 })
 
+router.get('/api/v1/companies/:id/products', /*jwtMiddleware,*/ async (ctx, next) => {
+    await companyController.getProducts(ctx)
+})
+
 router.put('/api/v1/companies/:id', /*jwtMiddleware,*/ async (ctx, next) => {
     await companyController.update(ctx)
 })

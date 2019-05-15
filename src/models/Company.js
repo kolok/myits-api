@@ -48,36 +48,46 @@ const CompanyModel = sequelize.define("companies", {
     type: Sequelize.DATE,
     field: "deleted_at"
   }
-});
+}, {underscored: true});
 
-
-
-
-
+CompanyModel.associate = function(models) {
+  CompanyModel.hasMany(models.ProductModel, {
+    sourceKey: 'company_id',
+    as: 'Products',
+  });
+};
 
 class Company {
     constructor() {}
 
     async all(request) {
         try {
-            return CompanyModel.findAll() //.then(projects => {return projects})
-        } catch (error) {
-            console.log(error)
-            throw new Error('ERROR')
-        }
-    }
-/*
-    async find(id) {
-        try {
-            let result = await findById(id)
-            if (!result) return {}
-            this.constructor(result)
+            return CompanyModel.findAll()
         } catch (error) {
             console.log(error)
             throw new Error('ERROR')
         }
     }
 
+    async find(id) {
+        try {
+          return CompanyModel.findByPk(id)
+        } catch (error) {
+            console.log(error)
+            throw new Error('ERROR')
+        }
+    }
+
+    async findProducts(id) {
+      try {
+        return CompanyModel.findByPk(id).then(company => {console.log(company.products); return company.getProducts})
+      } catch (error) {
+          console.log(error)
+          throw new Error('ERROR')
+      }
+    }
+
+    /*
     async store() {
         try {
             return await db('companies').insert(this)
@@ -110,17 +120,5 @@ class Company {
     }*/
 };
 
-/*
-async function findById(id) {
-    try {
-        let [companyData] = await db('companies')
-            .select('*')
-            .where({ id: id })
-        return companyData
-    } catch (error) {
-        console.log(error)
-        throw new Error('ERROR')
-    }
-}*/
 
 export { Company }

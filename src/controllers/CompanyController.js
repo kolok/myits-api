@@ -5,20 +5,75 @@ import { Company } from '../models/Company'
 
 
 class CompanyController {
-    async index(ctx) {
-        //Init a new company object
-        const query = ctx.query
-        const company = new Company()
+  async index(ctx) {
+      //Init a new company object
+      const query = ctx.query
+      const company = new Company()
 
-        //Get list of company
-        try {
-            let result = await company.all(query)
-            ctx.body = result
-        } catch (error) {
-            console.log(error)
-            ctx.throw(400, 'INVALID_DATA' + error)
-        }
-    }
+      //Get list of company
+      try {
+          let result = await company.all(query)
+          console.log(result)
+          ctx.body = result
+      } catch (error) {
+          console.log(error)
+          ctx.throw(400, 'INVALID_DATA' + error)
+      }
+  }
+  async getProducts(ctx) {
+      // get company id from params
+      const params = ctx.params
+      if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+      //Init a new company object
+      const company = new Company()
+
+      //Get list of products which belongs to the company
+      try {
+          //Find and show note
+          let result = await company.find(params.id)
+          ctx.body = result
+      } catch (error) {
+          console.log(error)
+          ctx.throw(400, 'INVALID_DATA')
+      }
+  }
+  async show(ctx) {
+      // get company id from params
+      const params = ctx.params
+      if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+      //Init a new company object
+      const company = new Company()
+
+      //Get list of products which belongs to the company
+      try {
+          //Find and show note
+          let result = await company.find(params.id)
+          ctx.body = result
+      } catch (error) {
+          console.log(error)
+          ctx.throw(400, 'INVALID_DATA')
+      }
+  }
+  async getProducts(ctx) {
+      // get company id from params
+      const params = ctx.params
+      if (!params.id) ctx.throw(400, 'INVALID_DATA')
+
+      //Init a new company object
+      const company = new Company()
+
+      //Get list of products which belongs to the company
+      try {
+          //Find and show note
+          let result = await company.findProducts(params.id)
+          ctx.body = result
+      } catch (error) {
+          console.log(error)
+          ctx.throw(400, 'INVALID_DATA')
+      }
+  }
 
 /*
     async show(ctx) {

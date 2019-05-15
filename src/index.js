@@ -12,6 +12,7 @@ import redis from 'ioredis'
 //Routes
 import defaultRouter from './routes/default'
 import companiesRouter from './routes/companies'
+import productsRouter from './routes/products'
 
 //Initialize app
 const app = new Koa()
@@ -84,5 +85,7 @@ app.use(defaultRouter.routes())
 app.use(defaultRouter.allowedMethods())
 app.use(companiesRouter.routes())
 app.use(companiesRouter.allowedMethods())
+app.use(productsRouter.routes())
+app.use(productsRouter.allowedMethods())
 
 export default app
