@@ -8,11 +8,10 @@ class ProductController {
     async index(ctx) {
         //Init a new product object
         const query = ctx.query
-        const product = new Product()
 
         //Get list of product
         try {
-            let result = await product.all(query)
+            let result = await Product.findAll()
             ctx.body = result
         } catch (error) {
             console.log(error)

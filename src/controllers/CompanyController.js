@@ -8,12 +8,10 @@ class CompanyController {
   async index(ctx) {
       //Init a new company object
       const query = ctx.query
-      const company = new Company()
 
       //Get list of company
       try {
-          let result = await company.all(query)
-          console.log(result)
+          let result = await Company.findAll()
           ctx.body = result
       } catch (error) {
           console.log(error)
@@ -31,7 +29,7 @@ class CompanyController {
       //Get list of products which belongs to the company
       try {
           //Find and show note
-          let result = await company.find(params.id)
+          let result = await Company.findByPk(params.id, {include: ['Product']}).then(companies => {return companies})
           ctx.body = result
       } catch (error) {
           console.log(error)
@@ -43,31 +41,10 @@ class CompanyController {
       const params = ctx.params
       if (!params.id) ctx.throw(400, 'INVALID_DATA')
 
-      //Init a new company object
-      const company = new Company()
-
       //Get list of products which belongs to the company
       try {
           //Find and show note
-          let result = await company.find(params.id)
-          ctx.body = result
-      } catch (error) {
-          console.log(error)
-          ctx.throw(400, 'INVALID_DATA')
-      }
-  }
-  async getProducts(ctx) {
-      // get company id from params
-      const params = ctx.params
-      if (!params.id) ctx.throw(400, 'INVALID_DATA')
-
-      //Init a new company object
-      const company = new Company()
-
-      //Get list of products which belongs to the company
-      try {
-          //Find and show note
-          let result = await company.findProducts(params.id)
+          let result = await Company.findByPk(params.id)
           ctx.body = result
       } catch (error) {
           console.log(error)

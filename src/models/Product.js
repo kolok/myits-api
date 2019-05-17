@@ -1,6 +1,6 @@
 import {sequelize, Sequelize} from '../db/db'
 
-const ProductModel = sequelize.define("products", {
+const Product = sequelize.define("products", {
   id: {
     type: Sequelize.DataTypes.INTEGER,
     primaryKey: true,
@@ -46,8 +46,13 @@ const ProductModel = sequelize.define("products", {
     type: Sequelize.DATE,
     field: "deleted_at"
   }
-});
+}, {underscored: true});
 
+Product.associate = function(models) {
+  Product.belongsTo(models.Company);
+};
+
+/*
 class Product {
     constructor() {}
 
@@ -60,5 +65,5 @@ class Product {
         }
     }
 };
-
+*/
 export { Product }

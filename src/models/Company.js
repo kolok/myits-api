@@ -1,24 +1,7 @@
 import {sequelize, Sequelize} from '../db/db'
 import rand from 'randexp'
 
-/*const Task = sequelize.define('task', {
-  title: Sequelize.STRING,
-  description: Sequelize.TEXT,
-  deadline: Sequelize.DATE
-})
-*/
-
-/* FIXME adding enum
-class MyModel extends Model {}
-MyModel.init({
-  states: {
-    type: Sequelize.ENUM,
-    values: ['active', 'pending', 'deleted']
-  }
-}, { sequelize })
-*/
-
-const CompanyModel = sequelize.define("companies", {
+const Company = sequelize.define("companies", {
   id: {
     type: Sequelize.DataTypes.INTEGER,
     primaryKey: true,
@@ -50,14 +33,11 @@ const CompanyModel = sequelize.define("companies", {
   }
 }, {underscored: true});
 
-CompanyModel.associate = function(models) {
-  CompanyModel.hasMany(models.ProductModel, {
-    sourceKey: 'company_id',
-    as: 'Products',
-  });
+Company.associate = function(models) {
+  Company.hasMany(models.Product, {as:'Product'});
 };
 
-class Company {
+/*class Company {
     constructor() {}
 
     async all(request) {
@@ -118,7 +98,7 @@ class Company {
             throw new Error('ERROR')
         }
     }*/
-};
+
 
 
 export { Company }
