@@ -15,20 +15,20 @@ module.exports = {
       {
         name: 'Company 1',
         status: 'active',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         name: 'Company 2',
         status: 'active',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         name: 'Company 3',
         status: 'active',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ], {});
   },
