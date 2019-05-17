@@ -1,8 +1,5 @@
-import joi from 'joi'
-import dateFormat from 'date-fns/format'
-
 import { Company } from '../models/Company'
-
+import { Product } from '../models/Product'
 
 class CompanyController {
   async index(ctx) {
@@ -29,7 +26,8 @@ class CompanyController {
       //Get list of products which belongs to the company
       try {
           //Find and show note
-          let result = await Company.findByPk(params.id, {include: ['Product']}).then(companies => {return companies})
+          console.log(company)
+          let result = await Company.findByPk(params.id, {include: [{model:Product, as:'products'}]}).then(companies => {return companies})
           ctx.body = result
       } catch (error) {
           console.log(error)

@@ -13,4 +13,8 @@ router.get('/api/v1/products', async (ctx, next) => {
     await productController.index(ctx)
 })
 
+router.get('/api/v1/products/:id/company', /*jwtMiddleware,*/ async (ctx, next) => {
+    await productController.getCompany(ctx)
+})
+
 export default router

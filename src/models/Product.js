@@ -1,4 +1,5 @@
 import {sequelize, Sequelize} from '../db/db'
+import {Company} from './Company'
 
 const Product = sequelize.define("products", {
   id: {
@@ -13,11 +14,11 @@ const Product = sequelize.define("products", {
   },
   company_id: {
     type: Sequelize.DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: false/*,
     references: {
       model: 'Company',
       key: 'id'
-    }
+    }*/
   },
   description: {
     type: Sequelize.DataTypes.TEXT,
@@ -48,22 +49,4 @@ const Product = sequelize.define("products", {
   }
 }, {underscored: true});
 
-Product.associate = function(models) {
-  Product.belongsTo(models.Company);
-};
-
-/*
-class Product {
-    constructor() {}
-
-    async all(request) {
-        try {
-            return ProductModel.findAll() //.then(projects => {return projects})
-        } catch (error) {
-            console.log(error)
-            throw new Error('ERROR')
-        }
-    }
-};
-*/
 export { Product }
